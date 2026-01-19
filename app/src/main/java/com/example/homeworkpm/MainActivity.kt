@@ -1,20 +1,31 @@
-package com.example.homeworkpm
-
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+
+        val btnSearch = findViewById<MaterialButton>(R.id.btnSearch)
+        val btnMedia = findViewById<MaterialButton>(R.id.btnMedia)
+        val btnSettings = findViewById<MaterialButton>(R.id.btnSettings)
+
+        btnSearch.setOnClickListener {
+            startActivity(Intent(this, SearchActivity::class.java))
+        }
+
+
+        btnMedia.setOnClickListener {
+            startActivity(Intent(this, MediaLibraryActivity::class.java))
+        }
+
+
+        btnSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 }
