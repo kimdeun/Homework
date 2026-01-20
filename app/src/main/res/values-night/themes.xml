@@ -1,6 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Базовая тема приложения -->
     <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Базовые настройки -->
     </style>
+
+    <!-- Основная тема приложения для темной темы -->
+    <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker">
+        <!-- Primary brand color (синий) -->
+        <item name="colorPrimary">@color/blue_main</item>
+
+        <!-- Цвет текста на primary цвете -->
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary цвет -->
+        <item name="colorSecondary">@color/background_dark</item>
+
+        <!-- Цвет текста на secondary цвете -->
+        <item name="colorOnSecondary">@color/text_primary</item>
+
+        <!-- Фон приложения -->
+        <item name="android:windowBackground">@color/background_dark</item>
+
+        <!-- Цвет статус бара -->
+        <item name="android:statusBarColor">@color/blue_main</item>
+
+        <!-- Цвет навигационного бара (если есть или будет) -->
+        <item name="android:navigationBarColor">@color/background_dark</item>
+
+        <!-- Цвет основного текста -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+
+        <!-- Цвет второстепенного текста -->
+        <item name="android:textColorSecondary">@color/icon_secondary</item>
+    </style>
+</resources>
