@@ -1,71 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/blue_main"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingHorizontal="@dimen/screen_padding">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/app_name"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:text="@string/main_title"
         android:textColor="@color/white"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/btn_search"
-        android:textAllCaps="false"
-        android:textColor="@color/black_main"
-        android:textSize="22sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/lupa"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/black_main" />
 
-    <Button
-        android:id="@+id/library_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_24"
         android:layout_weight="1"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/btn_library"
-        android:textAllCaps="false"
-        android:textColor="@color/black_main"
-        android:textSize="22sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/music"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/black_main" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/settings_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/btn_settings"
-        android:textAllCaps="false"
-        android:textColor="@color/black_main"
-        android:textSize="22sp"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/shester"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/black_main" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/card_margin_vertical"
+            android:layout_weight="1"
+            android:text="@string/main_search"
+            android:textAllCaps="false"
+            android:textColor="@color/text_dark"
+            android:textSize="20sp"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="@dimen/card_radius"
+            app:icon="@drawable/ic_search"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/main_icon_padding"
+            app:iconTint="@color/text_dark" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMedia"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/card_margin_vertical"
+            android:layout_weight="1"
+            android:text="@string/main_media"
+            android:textAllCaps="false"
+            android:textColor="@color/text_dark"
+            android:textSize="20sp"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="@dimen/card_radius"
+            app:icon="@drawable/ic_media"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/main_icon_padding"
+            app:iconTint="@color/text_dark" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettings"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/main_settings"
+            android:textAllCaps="false"
+            android:textColor="@color/text_dark"
+            android:textSize="20sp"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="@dimen/card_radius"
+            app:icon="@drawable/ic_settings"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/main_icon_padding"
+            app:iconTint="@color/text_dark" />
+
+    </LinearLayout>
 
 </LinearLayout>
