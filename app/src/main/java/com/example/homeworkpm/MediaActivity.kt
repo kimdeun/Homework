@@ -2,10 +2,9 @@ package com.example.homeworkpm
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-class MediaLibraryActivity : AppCompatActivity() {
-
+class MediaActivity : AppCompatActivity() {  //
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_media_library)
+        setContentView(R.layout.activity_media)  //
     }
 }
