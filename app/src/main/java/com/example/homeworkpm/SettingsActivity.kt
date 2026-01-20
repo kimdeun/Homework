@@ -10,7 +10,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.settings)
 
         val btnBack = findViewById<ImageView>(R.id.btnBack)
         btnBack.setOnClickListener {
