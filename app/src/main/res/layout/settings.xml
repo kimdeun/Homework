@@ -1,129 +1,133 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/background_light"
+    android:paddingHorizontal="@dimen/screen_padding">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Back -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="@dimen/title_margin_top"
+        android:contentDescription="@string/settings_title"
+        android:src="@drawable/ic_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvSettingsTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="@string/settings_title"
+        android:textColor="@color/text_dark"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    <!-- Dark theme -->
+    <TextView
+        android:id="@+id/tvDarkTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:minHeight="@dimen/settings_item_height"
+        android:text="@string/settings_dark_theme"
+        android:textColor="@color/text_dark"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/switchTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
-        <ImageView
-            android:id="@+id/back_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/strela"
-            android:rotation="180"
-            app:tint="@color/black_main" />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tvDarkTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDarkTheme" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="@string/btn_settings"
-            android:textColor="@color/black_main"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <!-- Share app -->
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/settings_item_height"
+        android:text="@string/settings_share_app"
+        android:textColor="@color/text_dark"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/iconShare"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDarkTheme" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:paddingHorizontal="16dp">
+    <ImageView
+        android:id="@+id/iconShare"
+        android:layout_width="@dimen/settings_icon_size"
+        android:layout_height="@dimen/settings_icon_size"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_share"
+        app:layout_constraintBottom_toBottomOf="@id/tvShare"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvShare" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/theme_dark"
-            android:textColor="@color/black_main"
-            android:textSize="16sp" />
+    <!-- Support -->
+    <TextView
+        android:id="@+id/tvSupport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/settings_item_height"
+        android:text="@string/settings_support"
+        android:textColor="@color/text_dark"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/iconSupport"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvShare" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/theme_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end" />
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/iconSupport"
+        android:layout_width="@dimen/settings_icon_size"
+        android:layout_height="@dimen/settings_icon_size"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_support"
+        app:layout_constraintBottom_toBottomOf="@id/tvSupport"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvSupport" />
 
-    <FrameLayout
-        android:id="@+id/share_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="16dp">
+    <!-- Agreement -->
+    <TextView
+        android:id="@+id/tvAgreement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/settings_item_height"
+        android:text="@string/settings_agreement"
+        android:textColor="@color/text_dark"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/iconArrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSupport" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/share_app"
-            android:textColor="@color/black_main"
-            android:textSize="16sp" />
+    <ImageView
+        android:id="@+id/iconArrow"
+        android:layout_width="@dimen/settings_icon_size"
+        android:layout_height="@dimen/settings_icon_size"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_cr"
+        app:layout_constraintBottom_toBottomOf="@id/tvAgreement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAgreement" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:src="@drawable/hren"
-            app:tint="@color/gray_icon" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/support_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/support"
-            android:textColor="@color/black_main"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:src="@drawable/govor"
-            app:tint="@color/gray_icon" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/terms_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/user_agreement"
-            android:textColor="@color/black_main"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:src="@drawable/strela"
-            app:tint="@color/gray_icon" />
-    </FrameLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
