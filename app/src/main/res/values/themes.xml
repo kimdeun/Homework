@@ -5,33 +5,34 @@
         <!-- Базовые настройки -->
     </style>
 
-    <!-- Основная тема приложения для светлой темы -->
+    <!-- Основная тема приложения для темной темы -->
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker">
-        <!-- Primary brand color (синий) -->
-        <item name="colorPrimary">@color/blue_main</item>
+        <!-- Primary brand color (черный) -->
+        <item name="colorPrimary">@color/black</item>
 
         <!-- Цвет текста на primary цвете -->
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary цвет -->
-        <item name="colorSecondary">@color/button_background</item>
+        <item name="colorSecondary">@color/white</item>
 
         <!-- Цвет текста на secondary цвете -->
-        <item name="colorOnSecondary">@color/text_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
 
-        <!-- Фон приложения -->
-        <item name="android:windowBackground">@color/background_light</item>
+        <!-- Фон приложения - по умолчанию черный -->
+        <item name="android:windowBackground">@color/black</item>
 
         <!-- Цвет статус бара -->
-        <item name="android:statusBarColor">@color/blue_main</item>
+        <item name="android:statusBarColor">@color/black</item>
 
-        <!-- Цвет навигационного бара (если есть или будет) -->
-        <item name="android:navigationBarColor">@color/background_light</item>
+        <!-- Цвет навигационного бара -->
+        <item name="android:navigationBarColor">@color/black</item>
 
-        <!-- Цвет основного текста -->
-        <item name="android:textColorPrimary">@color/text_dark</item>
+        <!-- Цвет основного текста (по умолчанию белый для настроек) -->
+        <item name="android:textColorPrimary">@color/white</item>
 
         <!-- Цвет второстепенного текста -->
-        <item name="android:textColorSecondary">@color/icon_secondary</item>
+        <item name="android:textColorSecondary">@color/white</item>
+
     </style>
 </resources>

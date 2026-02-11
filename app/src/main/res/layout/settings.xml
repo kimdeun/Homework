@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:text="@string/settings_title"
+        style="MessageTextStyle"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"

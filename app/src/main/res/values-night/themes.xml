@@ -7,25 +7,25 @@
 
     <!-- Основная тема приложения для темной темы -->
     <style name="Theme.PlaylistMaker" parent="Base.Theme.PlaylistMaker">
-        <!-- Primary brand color (синий) -->
-        <item name="colorPrimary">@color/blue_main</item>
+        <!-- Primary brand color (черный для статус-бара) -->
+        <item name="colorPrimary">@color/black</item>
 
         <!-- Цвет текста на primary цвете -->
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary цвет -->
-        <item name="colorSecondary">@color/background_dark</item>
+        <!-- Secondary цвет - БЕЛЫЙ для кнопок -->
+        <item name="colorSecondary">@color/white</item>
 
-        <!-- Цвет текста на secondary цвете -->
-        <item name="colorOnSecondary">@color/text_primary</item>
+        <!-- Цвет текста на secondary цвете - ЧЕРНЫЙ для кнопок -->
+        <item name="colorOnSecondary">@color/black</item>
 
         <!-- Фон приложения -->
         <item name="android:windowBackground">@color/background_dark</item>
 
         <!-- Цвет статус бара -->
-        <item name="android:statusBarColor">@color/blue_main</item>
+        <item name="android:statusBarColor">@color/black</item>
 
-        <!-- Цвет навигационного бара (если есть или будет) -->
+        <!-- Цвет навигационного бара -->
         <item name="android:navigationBarColor">@color/background_dark</item>
 
         <!-- Цвет основного текста -->

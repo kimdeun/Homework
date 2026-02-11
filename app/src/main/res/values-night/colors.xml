@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Backgrounds -->
+    <color name="background_main">#1A1B22</color>
+    <color name="blue_main">#1A1B22</color>
+    <color name="background_light">#1A1B22</color>
+    <color name="background_dark">#121317</color>
+
+    <!-- Base colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#BDBDBD</color>
+    <color name="text_dark">#FFFFFF</color>
+
+    <!-- Кнопочные цвета -->
+    <color name="button_text">#000000</color> <!-- ЧЕРНЫЙ для текста кнопок -->
+    <color name="button_background">#FFFFFF</color> <!-- БЕЛЫЙ фон кнопок -->
+    <color name="button_text_dark">#000000</color> <!-- ЧЕРНЫЙ для текста кнопок -->
+
+    <!-- Icons -->
+    <color name="icon_primary">#000000</color> <!-- ЧЕРНЫЙ для иконок на кнопках -->
+    <color name="icon_secondary">#BDBDBD</color>
+
+    <!-- Dividers -->
+    <color name="divider">#2D2F3B</color>
+</resources>

@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/title_margin_top"
         android:text="@string/main_title"
+        style="MessageTextStyle"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
 
     <LinearLayout
@@ -31,15 +32,13 @@
             android:layout_marginBottom="@dimen/card_margin_vertical"
             android:layout_weight="1"
             android:text="@string/main_search"
+            style="@style/ButtonStyle"
             android:textAllCaps="false"
-            android:textColor="@color/text_dark"
             android:textSize="20sp"
-            app:backgroundTint="@color/white"
             app:cornerRadius="@dimen/card_radius"
             app:icon="@drawable/ic_search"
             app:iconGravity="textStart"
-            app:iconPadding="@dimen/main_icon_padding"
-            app:iconTint="@color/text_dark" />
+            app:iconPadding="@dimen/main_icon_padding" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMedia"
@@ -48,15 +47,13 @@
             android:layout_marginBottom="@dimen/card_margin_vertical"
             android:layout_weight="1"
             android:text="@string/main_media"
+            style="@style/ButtonStyle"
             android:textAllCaps="false"
-            android:textColor="@color/text_dark"
             android:textSize="20sp"
-            app:backgroundTint="@color/white"
             app:cornerRadius="@dimen/card_radius"
             app:icon="@drawable/ic_media"
             app:iconGravity="textStart"
-            app:iconPadding="@dimen/main_icon_padding"
-            app:iconTint="@color/text_dark" />
+            app:iconPadding="@dimen/main_icon_padding" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSettings"
@@ -64,15 +61,13 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="@string/main_settings"
+            style="@style/ButtonStyle"
             android:textAllCaps="false"
-            android:textColor="@color/text_dark"
             android:textSize="20sp"
-            app:backgroundTint="@color/white"
             app:cornerRadius="@dimen/card_radius"
             app:icon="@drawable/ic_settings"
             app:iconGravity="textStart"
-            app:iconPadding="@dimen/main_icon_padding"
-            app:iconTint="@color/text_dark" />
+            app:iconPadding="@dimen/main_icon_padding" />
 
     </LinearLayout>
 
