@@ -29,4 +29,10 @@
     <string name="question_text">Рейтинг этого фильма больше чем 9?</string>
     <string name="answer_no">Нет</string>
     <string name="answer_yes">Да</string>
+
+    <!-- activity -->
+    <string name="search">Поиск</string>
+    <string name="search_hint">Поиск</string>
+    <string name="search_icon_description">Поиск</string>
+    <string name="clear_search_description">Очистить</string>
 </resources>
