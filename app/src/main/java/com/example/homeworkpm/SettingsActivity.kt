@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homeworkpm.R
 
-class SearchActivity : AppCompatActivity() {
+class SettingsActivity: AppCompatActivity() {
 
     // Переменная для хранения текста поиска
     private var searchQuery: String = ""
