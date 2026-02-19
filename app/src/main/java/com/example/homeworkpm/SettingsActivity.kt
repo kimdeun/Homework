@@ -1,72 +1,88 @@
 package com.example.homeworkpm
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.example.homeworkpm.R
 
-class SettingsActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
+
+    // Переменная для хранения текста поиска
+    private var searchQuery: String = ""
+
+    // View элементы
+    private lateinit var backButton: ImageButton
+    private lateinit var searchEditText: EditText
+    private lateinit var clearButton: ImageButton
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings)
+        setContentView(R.layout.activity_search)
 
-        // Кнопка "Назад"
-        val btnBack = findViewById<ImageView>(R.id.btnBack)
-        btnBack.setOnClickListener {
+        // Инициализация View
+        backButton = findViewById(R.id.backButton)
+        searchEditText = findViewById(R.id.searchEditText)
+        clearButton = findViewById(R.id.clearSearchButton)
+        recyclerView = findViewById(R.id.searchResultsRecyclerView)
+
+        // Обработчик для кнопки "Назад"
+        backButton.setOnClickListener {
             finish()
         }
 
-        // Кнопка "Поделиться приложением"
-        findViewById<TextView>(R.id.tvShare).setOnClickListener {
-            shareApp()
+        // Обработчик для кнопки очистки
+        clearButton.setOnClickListener {
+            searchEditText.text.clear()
         }
 
-        // Кнопка "Написать в поддержку"
-        findViewById<TextView>(R.id.tvSupport).setOnClickListener {
-            sendEmail()
-        }
+        // Добавляем TextWatcher для отслеживания изменений в EditText
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Не требуется
+            }
 
-        // Кнопка "Пользовательское соглашение"
-        findViewById<TextView>(R.id.tvAgreement).setOnClickListener {
-            openAgreement()
-        }
-    }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Сохраняем текст в переменную
+                searchQuery = s?.toString() ?: ""
 
-    private fun shareApp() {
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
-        }
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.settings_share_app)))
-    }
+                // Показываем или скрываем кнопку очистки в зависимости от наличия текста
+                clearButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+            }
 
-    private fun sendEmail() {
-        val email = getString(R.string.support_email)
-        val subject = getString(R.string.support_subject)
-        val body = getString(R.string.support_body)
+            override fun afterTextChanged(s: Editable?) {
+                // Не требуется
+            }
+        })
 
-        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:$email")
-            putExtra(Intent.EXTRA_SUBJECT, subject)
-            putExtra(Intent.EXTRA_TEXT, body)
-        }
-
-        // Проверяем, есть ли почтовый клиент на устройстве
-        if (emailIntent.resolveActivity(packageManager) != null) {
-            startActivity(emailIntent)
+        // Восстанавливаем текст, если есть сохраненное состояние
+        if (savedInstanceState != null) {
+            val restoredText = savedInstanceState.getString("SEARCH_QUERY", "")
+            searchEditText.setText(restoredText)
+            searchQuery = restoredText
         }
     }
 
-    private fun openAgreement() {
-        val url = getString(R.string.agreement_url)
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-        // Проверяем, есть ли браузер на устройстве
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
+        // Сохраняем текст из переменной в Bundle
+        outState.putString("SEARCH_QUERY", searchQuery)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        // Восстанавливаем сохраненный текст (альтернативный метод)
+        savedInstanceState?.let {
+            val restoredText = it.getString("SEARCH_QUERY", "")
+            searchEditText.setText(restoredText)
+            searchQuery = restoredText
         }
     }
 }

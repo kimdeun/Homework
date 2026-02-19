@@ -23,6 +23,10 @@
     <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="agreement_url" translatable="false">https://yandex.ru/legal/practicum_offer</string>
 
+    <!-- НОВЫЕ СТРОКИ: для экрана пользовательского соглашения -->
+    <string name="agreement_title">Пользовательское соглашение</string>
+    <string name="agreement_text">Текст пользовательского соглашения будет здесь. Это очень длинный текст с правилами использования приложения, условиями и т.д.</string>
+
     <!-- Question screen -->
     <string name="question_label">Вопрос:</string>
     <string name="question_progress">2/10</string>
