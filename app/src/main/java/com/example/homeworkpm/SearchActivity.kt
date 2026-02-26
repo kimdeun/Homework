@@ -1,5 +1,4 @@
 package com.example.homeworkpm
-
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -7,76 +6,77 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
+
 class SearchActivity : AppCompatActivity() {
+
     private lateinit var searchEditText: EditText
-    private lateinit var clearSearchButton: ImageButton
-    private lateinit var backButton: ImageButton
+    private lateinit var clearButton: ImageView
+
+    private var searchText: String = ""
+    private var isRestoring = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        initViews()
-        setupListeners()
-    }
+        val backButton = findViewById<ImageView>(R.id.btnBack)
+        searchEditText = findViewById(R.id.etSearch)
+        clearButton = findViewById(R.id.ivClear)
 
-    private fun initViews() {
-        searchEditText = findViewById(R.id.searchEditText)
-        clearSearchButton = findViewById(R.id.clearSearchButton)
-        backButton = findViewById(R.id.backButton)
-    }
+        backButton.setOnClickListener { finish() }
 
-    private fun setupListeners() {
-        // TextWatcher для поисковой строки
-        val searchTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Заглушка для будущих задач
-            }
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Показываем или скрываем кнопку очистки в зависимости от наличия текста
-                clearSearchButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+                if (isRestoring) return
+
+                searchText = s?.toString().orEmpty()
+                clearButton.visibility =
+                    if (searchText.isEmpty()) View.GONE else View.VISIBLE
             }
 
-            override fun afterTextChanged(s: Editable?) {
-                // Заглушка для будущих задач (поиск будет здесь)
-            }
+            override fun afterTextChanged(s: Editable?) {}
         }
 
-        searchEditText.addTextChangedListener(searchTextWatcher)
+        searchEditText.addTextChangedListener(textWatcher)
 
-        // Кнопка очистки
-        clearSearchButton.setOnClickListener {
-            searchEditText.setText("")           // Очищаем текст
-            searchEditText.clearFocus()          // Убираем фокус
-            hideKeyboard()                         // Прячем клавиатуру
-            // Кнопка очистки скроется автоматически через TextWatcher
+        clearButton.setOnClickListener {
+            searchEditText.text.clear()
+            hideKeyboard(searchEditText)
+            searchEditText.clearFocus()
+            clearButton.visibility = View.GONE
+            searchText = ""
         }
-
-        // Кнопка назад
-        backButton.setOnClickListener {
-            finish()
-        }
-    }
-
-    private fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("search_text", searchEditText.text.toString())
+        outState.putString(KEY_SEARCH_TEXT, searchText)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val savedText = savedInstanceState.getString("search_text", "")
-        searchEditText.setText(savedText)
-        // Обновляем видимость кнопки очистки
-        clearSearchButton.visibility = if (savedText.isEmpty()) View.GONE else View.VISIBLE
+
+        isRestoring = true
+        val value = savedInstanceState.getString(KEY_SEARCH_TEXT, "")
+        searchEditText.setText(value)
+        searchEditText.setSelection(value.length)
+        clearButton.visibility =
+            if (value.isEmpty()) View.GONE else View.VISIBLE
+        searchText = value
+        isRestoring = false
+    }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    companion object {
+        private const val KEY_SEARCH_TEXT = "KEY_SEARCH_TEXT"
     }
 }

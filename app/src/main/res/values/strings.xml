@@ -15,17 +15,14 @@
     <string name="settings_share_app">Поделиться приложением</string>
     <string name="settings_support">Написать в поддержку</string>
     <string name="settings_agreement">Пользовательское соглашение</string>
+    <string name="share_message">Playlist Maker — ссылка на приложение</string>
+    <string name="share_chooser_title">Поделиться приложением</string>
+    <string name="no_email_client">На устройстве не найдено приложение для отправки email</string>
 
-    <!-- Добавляем новые строки для экрана настроек -->
-    <string name="share_message">Посмотрите курс по Android-разработке в Яндекс Практикуме! https://practicum.yandex.ru/android-developer/</string>
-    <string name="support_email">katyarinken@gmail.com</string>
-    <string name="support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
-    <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
-    <string name="agreement_url" translatable="false">https://yandex.ru/legal/practicum_offer</string>
+    <!-- Share -->
+    <string name="share_app_text">Playlist Maker — ссылка на приложение</string>
+    <string name="share_app_chooser_title">Поделиться приложением</string>
 
-    <!-- НОВЫЕ СТРОКИ: для экрана пользовательского соглашения -->
-    <string name="agreement_title">Пользовательское соглашение</string>
-    <string name="agreement_text">Текст пользовательского соглашения будет здесь. Это очень длинный текст с правилами использования приложения, условиями и т.д.</string>
 
     <!-- Question screen -->
     <string name="question_label">Вопрос:</string>
@@ -34,9 +31,15 @@
     <string name="answer_no">Нет</string>
     <string name="answer_yes">Да</string>
 
-    <!-- activity -->
-    <string name="search">Поиск</string>
+    <string name="support_email">your_email@example.com</string>
+    <string name="support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+
+    <!-- Agreement -->
+    <string name="agreement_title">Соглашение</string>
+    <string name="agreement_url">https://yandex.ru/legal/praktikum_offer/</string>
+
+    <string name="clear_search">Очистить поисковый запрос</string>
     <string name="search_hint">Поиск</string>
-    <string name="search_icon_description">Поиск</string>
-    <string name="clear_search_description">Очистить</string>
+
 </resources>

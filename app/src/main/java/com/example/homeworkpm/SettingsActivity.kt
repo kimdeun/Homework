@@ -1,88 +1,92 @@
 package com.example.homeworkpm
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.example.homeworkpm.R
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.switchmaterial.SwitchMaterial
 
-class SettingsActivity: AppCompatActivity() {
+class SettingsActivity : AppCompatActivity() {
 
-    // Переменная для хранения текста поиска
-    private var searchQuery: String = ""
 
-    // View элементы
-    private lateinit var backButton: ImageButton
-    private lateinit var searchEditText: EditText
-    private lateinit var clearButton: ImageButton
-    private lateinit var recyclerView: RecyclerView
+    private val prefs by lazy {
+        getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.settings)
 
-        // Инициализация View
-        backButton = findViewById(R.id.backButton)
-        searchEditText = findViewById(R.id.searchEditText)
-        clearButton = findViewById(R.id.clearSearchButton)
-        recyclerView = findViewById(R.id.searchResultsRecyclerView)
-
-        // Обработчик для кнопки "Назад"
-        backButton.setOnClickListener {
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        // Обработчик для кнопки очистки
-        clearButton.setOnClickListener {
-            searchEditText.text.clear()
+        // ---- Switch theme ----
+        val switchTheme = findViewById<SwitchMaterial>(R.id.switchTheme)
+
+        val isDarkTheme = prefs.getBoolean(KEY_DARK_THEME, false)
+        switchTheme.isChecked = isDarkTheme
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkTheme) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
+        switchTheme.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean(KEY_DARK_THEME, checked).apply()
+
+            AppCompatDelegate.setDefaultNightMode(
+                if (checked) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
 
-        // Добавляем TextWatcher для отслеживания изменений в EditText
-        searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Не требуется
+        // ---- Share ----
+        findViewById<TextView>(R.id.tvShare).setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
             }
+            startActivity(
+                Intent.createChooser(
+                    shareIntent,
+                    getString(R.string.share_chooser_title)
+                )
+            )
+        }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Сохраняем текст в переменную
-                searchQuery = s?.toString() ?: ""
-
-                // Показываем или скрываем кнопку очистки в зависимости от наличия текста
-                clearButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+        // ---- Support (Email) ----
+        findViewById<TextView>(R.id.tvSupport).setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.support_subject))
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.support_body))
             }
-
-            override fun afterTextChanged(s: Editable?) {
-                // Не требуется
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, getString(R.string.no_email_client), Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        // Восстанавливаем текст, если есть сохраненное состояние
-        if (savedInstanceState != null) {
-            val restoredText = savedInstanceState.getString("SEARCH_QUERY", "")
-            searchEditText.setText(restoredText)
-            searchQuery = restoredText
+        // ---- Agreement (Browser) ----
+        findViewById<TextView>(R.id.tvAgreement).setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.agreement_url))
+            )
+            startActivity(intent)
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        // Сохраняем текст из переменной в Bundle
-        outState.putString("SEARCH_QUERY", searchQuery)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        // Восстанавливаем сохраненный текст (альтернативный метод)
-        savedInstanceState?.let {
-            val restoredText = it.getString("SEARCH_QUERY", "")
-            searchEditText.setText(restoredText)
-            searchQuery = restoredText
-        }
+    companion object {
+        private const val PREFS_NAME = "playlist_maker_prefs"
+        private const val KEY_DARK_THEME = "dark_theme"
     }
 }
