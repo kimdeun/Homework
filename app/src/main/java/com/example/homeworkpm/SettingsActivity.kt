@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
-
 
     private val prefs by lazy {
         getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -22,13 +21,13 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings)
 
+        // Кнопка "Назад"
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
         // ---- Switch theme ----
         val switchTheme = findViewById<SwitchMaterial>(R.id.switchTheme)
-
         val isDarkTheme = prefs.getBoolean(KEY_DARK_THEME, false)
         switchTheme.isChecked = isDarkTheme
 
@@ -39,18 +38,20 @@ class SettingsActivity : AppCompatActivity() {
 
         switchTheme.setOnCheckedChangeListener { _, checked ->
             prefs.edit().putBoolean(KEY_DARK_THEME, checked).apply()
-
             AppCompatDelegate.setDefaultNightMode(
                 if (checked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
         }
 
-        // ---- Share ----
-        findViewById<TextView>(R.id.tvShare).setOnClickListener {
+        // ---- Share app with course link ----
+        findViewById<View>(R.id.shareContainer).setOnClickListener {
+            val shareText = getString(R.string.share_app_text) + " " +
+                    getString(R.string.android_course_url)
+
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message))
+                putExtra(Intent.EXTRA_TEXT, shareText)
             }
             startActivity(
                 Intent.createChooser(
@@ -61,7 +62,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // ---- Support (Email) ----
-        findViewById<TextView>(R.id.tvSupport).setOnClickListener {
+        findViewById<View>(R.id.supportContainer).setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
@@ -76,13 +77,18 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // ---- Agreement (Browser) ----
-        findViewById<TextView>(R.id.tvAgreement).setOnClickListener {
+        findViewById<View>(R.id.agreementContainer).setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse(getString(R.string.agreement_url))
             )
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
     companion object {

@@ -15,14 +15,23 @@
     <string name="settings_share_app">Поделиться приложением</string>
     <string name="settings_support">Написать в поддержку</string>
     <string name="settings_agreement">Пользовательское соглашение</string>
-    <string name="share_message">Playlist Maker — ссылка на приложение</string>
-    <string name="share_chooser_title">Поделиться приложением</string>
-    <string name="no_email_client">На устройстве не найдено приложение для отправки email</string>
 
     <!-- Share -->
     <string name="share_app_text">Playlist Maker — ссылка на приложение</string>
-    <string name="share_app_chooser_title">Поделиться приложением</string>
+    <string name="share_chooser_title">Поделиться приложением</string>
 
+    <!-- Support -->
+    <string name="support_email">your_email@example.com</string>
+    <string name="support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="no_email_client">На устройстве не найдено приложение для отправки email</string>
+
+    <!-- Agreement -->
+    <string name="agreement_title">Соглашение</string>
+    <string name="agreement_url">https://yandex.ru/legal/praktikum_offer/</string>
+
+    <!-- Android Course -->
+    <string name="android_course_url">https://practicum.yandex.ru/android-developer/</string>
 
     <!-- Question screen -->
     <string name="question_label">Вопрос:</string>
@@ -31,14 +40,7 @@
     <string name="answer_no">Нет</string>
     <string name="answer_yes">Да</string>
 
-    <string name="support_email">your_email@example.com</string>
-    <string name="support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
-    <string name="support_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
-
-    <!-- Agreement -->
-    <string name="agreement_title">Соглашение</string>
-    <string name="agreement_url">https://yandex.ru/legal/praktikum_offer/</string>
-
+    <!-- Search -->
     <string name="clear_search">Очистить поисковый запрос</string>
     <string name="search_hint">Поиск</string>
 
