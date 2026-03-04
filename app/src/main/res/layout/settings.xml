@@ -143,7 +143,7 @@
         <ImageView
             android:id="@+id/iconArrow"
             style="@style/Icon_Settings"
-            android:src="@drawable/ic_arrow"
+            android:src="@drawable/ic_cr"
             app:layout_constraintBottom_toBottomOf="@id/tvAgreement"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvAgreement" />

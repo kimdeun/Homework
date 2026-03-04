@@ -16,6 +16,7 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var searchEditText: EditText
     private lateinit var clearButton: ImageView
+    private lateinit var backButton: ImageView  //  для кнопки назад
 
     private var searchText: String = ""
     private var isRestoring = false
@@ -26,8 +27,14 @@ class SearchActivity : AppCompatActivity() {
 
         searchEditText = findViewById(R.id.etSearch)
         clearButton = findViewById(R.id.ivClear)
+        backButton = findViewById(R.id.btnBack)  // Инициализируем кнопку назад
 
-        // Устанавливаем подсказку из strings.xml
+        //  для кнопки назад
+        backButton.setOnClickListener {
+            hideKeyboard(searchEditText)
+            finish()
+        }
+
         searchEditText.hint = getString(R.string.search_hint)
 
         val textWatcher = object : TextWatcher {
@@ -45,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchEditText.addTextChangedListener(textWatcher)
 
-        // Обработка нажатия кнопки "Поиск" на клавиатуре
+        // кнопка назад
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
