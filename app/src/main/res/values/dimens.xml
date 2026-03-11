@@ -35,4 +35,15 @@
     <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_12">12dp</dimen>
 
+    <!-- Track item  -->
+    <dimen name="track_image_size">45dp</dimen>
+    <dimen name="track_name_size">16sp</dimen>
+    <dimen name="track_info_size">11sp</dimen>
+    <dimen name="track_item_padding_vertical">8dp</dimen>
+    <dimen name="track_item_padding_horizontal">13dp</dimen>
+    <dimen name="track_image_corner_radius">2dp</dimen>
+    <dimen name="track_dot_margin">4dp</dimen>
+    <dimen name="track_text_margin_start">8dp</dimen>
+    <dimen name="track_item_padding_start">13dp</dimen>
+
 </resources>

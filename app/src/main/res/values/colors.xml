@@ -23,6 +23,10 @@
     <color name="switch_track_unchecked">#D6D6D6</color>
 
     <color name="text_on_card">#1A1B22</color>
+    <color name="track_name_color">#1A1B22</color>
+    <color name="artist_name_color">#AEAFB4</color>
+    <color name="track_time_color">#AEAFB4</color>
+    <color name="track_dot_color">#AEAFB4</color>
 
     <!-- Search field -->
     <color name="search_field_bg">#E6E8EB</color>

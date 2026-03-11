@@ -44,4 +44,8 @@
     <string name="clear_search">Очистить поисковый запрос</string>
     <string name="search_hint">Поиск</string>
 
+    <!-- Description for images  -->
+    <string name="track_image_description">Обложка трека</string>
+    <string name="dot_description">Разделитель</string>
+    <string name="arrow_description">Перейти к треку</string>
 </resources>
