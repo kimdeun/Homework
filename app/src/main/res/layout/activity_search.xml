@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_light"
-    android:paddingHorizontal="16dp"
     android:paddingTop="16dp">
 
     <!-- Header  -->
@@ -13,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -36,15 +36,15 @@
             android:text="@string/main_search" />
     </LinearLayout>
 
-    <!-- Search field -->
+    <!-- Поле поиска  -->
     <FrameLayout
         android:id="@+id/searchField"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
         android:background="@drawable/ic_search_field">
 
-        <!-- Search icon -->
         <ImageView
             android:id="@+id/ivSearchIcon"
             android:layout_width="16dp"
@@ -54,7 +54,6 @@
             android:src="@drawable/ic_search"
             app:tint="@color/search_hint_and_icons" />
 
-        <!-- Input -->
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
@@ -68,9 +67,9 @@
             android:paddingStart="44dp"
             android:paddingEnd="44dp"
             android:textColor="@color/search_input_text"
-            android:textColorHint="@color/search_hint_and_icons" />
+            android:textColorHint="@color/search_hint_and_icons"
+            android:textCursorDrawable="@null" />
 
-        <!-- Clear button -->
         <ImageView
             android:id="@+id/ivClear"
             android:layout_width="16dp"
@@ -88,7 +87,7 @@
 
     </FrameLayout>
 
-    <!--  -->
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

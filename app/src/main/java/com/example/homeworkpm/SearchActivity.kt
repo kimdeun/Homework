@@ -35,9 +35,8 @@ class SearchActivity : AppCompatActivity() {
         searchEditText = findViewById(R.id.etSearch)
         clearButton = findViewById(R.id.ivClear)
         backButton = findViewById(R.id.btnBack)
-        recyclerView = findViewById(R.id.recycler_view)  // !!! Инициализируем RecyclerView
+        recyclerView = findViewById(R.id.recycler_view)
 
-        // !!! Настраиваем RecyclerView со списком треков
         setupRecyclerView()
 
         // Настройка кнопки назад
@@ -63,7 +62,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchEditText.addTextChangedListener(textWatcher)
 
-        // Обработка нажатия кнопки "Поиск" на клавиатуре
+        // Обработка нажатия кнопки "Поиск"
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
@@ -83,20 +82,18 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    // !!! НОВЫЙ МЕТОД: настройка RecyclerView с мок-данными
+
     private fun setupRecyclerView() {
-        // Получаем мок-данные
         val mockTracks = getMockTracks()
 
-        // Создаем адаптер
+
         adapter = TrackAdapter(mockTracks)
 
-        // Настраиваем RecyclerView
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
 
-    // !!! НОВЫЙ МЕТОД: создание мок-данных для списка треков
     private fun getMockTracks(): List<Track> {
         return listOf(
             Track(
@@ -146,8 +143,6 @@ class SearchActivity : AppCompatActivity() {
             Toast.makeText(this, "Поиск: $query", Toast.LENGTH_SHORT).show()
             hideKeyboard(searchEditText)
 
-            // !!! Здесь в будущем будет поиск через API
-            // А пока просто показываем, что поиск работает
         }
     }
 

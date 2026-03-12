@@ -8,7 +8,7 @@
     android:paddingVertical="12dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <!-- Обложка слева -->
+    <!-- Обложка -->
     <ImageView
         android:id="@+id/track_image"
         android:layout_width="48dp"
@@ -16,6 +16,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_placeholder"
         android:contentDescription="@string/track_image_description"
+        android:layout_marginStart="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,11 +35,12 @@
         app:layout_constraintStart_toEndOf="@id/track_image"
         app:layout_constraintEnd_toStartOf="@id/arrow"
         app:layout_constraintTop_toTopOf="@id/track_image"
+        app:layout_constraintBottom_toBottomOf="@id/track_image"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="8dp"
         tools:text="Smells Like Teen Spirit" />
 
-    <!-- Контейнер для исполнителя + точки + времени -->
+    <!-- Контейнер для исполнителя -->
     <LinearLayout
         android:id="@+id/artist_info"
         android:layout_width="0dp"
