@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Обложка -->
+    <ImageView
+        android:id="@+id/track_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_placeholder"
+        android:contentDescription="@string/track_image_description"
+        android:layout_marginStart="13dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <!-- Название трека -->
+    <TextView
+        android:id="@+id/track_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/track_name_color"
+        android:fontFamily="@font/ys_display_medium"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/track_image"
+        app:layout_constraintEnd_toStartOf="@id/arrow"
+        app:layout_constraintTop_toTopOf="@id/track_image"
+        app:layout_constraintBottom_toBottomOf="@id/track_image"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        tools:text="Smells Like Teen Spirit" />
+
+    <!-- Контейнер для исполнителя -->
+    <LinearLayout
+        android:id="@+id/artist_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toEndOf="@id/track_image"
+        app:layout_constraintEnd_toStartOf="@id/arrow"
+        app:layout_constraintTop_toBottomOf="@id/track_name"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/artist_name_color"
+            android:fontFamily="@font/ys_display_regular"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Nirvana" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_dot"
+            android:contentDescription="@string/dot_description"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            app:tint="@color/track_dot_color" />
+
+        <TextView
+            android:id="@+id/track_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/track_time_color"
+            android:fontFamily="@font/ys_display_regular"
+            android:maxLines="1"
+            tools:text="5:01" />
+
+    </LinearLayout>
+
+    <!-- Иконка стрелки -->
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_cr"
+        android:contentDescription="@string/arrow_description"
+        android:tint="@color/icon_secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

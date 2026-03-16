@@ -22,14 +22,18 @@
     <color name="switch_track_unchecked">#D6D6D6</color>
 
     <color name="text_on_card">#1A1B22</color>
+    <color name="track_name_color">#FFFFFF</color>
+    <color name="artist_name_color">#9B9B9B</color>
+    <color name="track_time_color">#9B9B9B</color>
+    <color name="track_dot_color">#9B9B9B</color>
 
-    <!-- Search field -->
-    <color name="search_field_bg">#FFFFFF</color>
-    <color name="search_text">#1A1B22</color>
+    <!-- Search field  -->
+    <color name="search_field_bg">#2A2B32</color>
+    <color name="search_text">#FFFFFF</color>
     <color name="search_hint_color">#9B9B9B</color>
     <color name="search_icon_tint">#9B9B9B</color>
-    <color name="search_hint_and_icons">#1A1B22</color>
-    <color name="search_input_text">#1A1B22</color>
+    <color name="search_hint_and_icons">#9B9B9B</color>
+    <color name="search_input_text">#FFFFFF</color>
 
 
 
