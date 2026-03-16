@@ -48,4 +48,7 @@
     <string name="track_image_description">Обложка трека</string>
     <string name="dot_description">Разделитель</string>
     <string name="arrow_description">Перейти к треку</string>
+
+    <string name="nothing_found">Ничего не нашлось</string>
+    <string name="something_went_wrong">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
 </resources>

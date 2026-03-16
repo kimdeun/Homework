@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background_light"
     android:paddingTop="16dp">
 
-    <!-- Header  -->
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,64 +38,136 @@
             android:text="@string/main_search" />
     </LinearLayout>
 
-    <!-- Поле поиска  -->
+    <!-- Search field -->
     <FrameLayout
         android:id="@+id/searchField"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="52dp"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/ic_search_field">
+        android:paddingHorizontal="16dp">
 
-        <ImageView
-            android:id="@+id/ivSearchIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="12dp"
-            android:src="@drawable/ic_search"
-            app:tint="@color/search_hint_and_icons" />
-
-        <EditText
-            android:id="@+id/etSearch"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:paddingStart="44dp"
-            android:paddingEnd="44dp"
-            android:textColor="@color/search_input_text"
-            android:textColorHint="@color/search_hint_and_icons"
-            android:textCursorDrawable="@null" />
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_search_field">
 
-        <ImageView
-            android:id="@+id/ivClear"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
-            android:contentDescription="@string/clear_search"
-            android:src="@drawable/ic_crestik"
-            android:visibility="gone"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?selectableItemBackgroundBorderless"
-            android:padding="0dp"
-            app:tint="@color/search_hint_and_icons" />
+            <ImageView
+                android:id="@+id/ivSearchIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/search_hint_and_icons" />
 
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/search_hint"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:textColor="@color/search_input_text"
+                android:textColorHint="@color/search_hint_and_icons"
+                android:textCursorDrawable="@null" />
+
+            <ImageView
+                android:id="@+id/ivClear"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/clear_search"
+                android:src="@drawable/ic_crestik"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="0dp"
+                app:tint="@color/search_hint_and_icons" />
+        </FrameLayout>
     </FrameLayout>
 
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <!-- Content Container (RecyclerView + Placeholder) -->
+    <FrameLayout
+        android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp">
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            android:visibility="visible" />
+
+        <!-- Placeholder (Empty / Error) -->
+        <LinearLayout
+            android:id="@+id/placeholderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:paddingHorizontal="16dp">
+
+            <ImageView
+                android:id="@+id/placeholderImage"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:contentDescription="@null"
+                tools:src="@drawable/ic_nothing_found_light" />
+
+            <TextView
+                android:id="@+id/placeholderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/nothing_found_title"
+                android:textColor="@color/track_name_color"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/placeholderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/something_went_wrong"
+                android:textColor="@color/artist_name_color"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/retryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minHeight="36dp"
+                android:minWidth="91dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/retry"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textColor="@color/blue"
+                android:background="?selectableItemBackground"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
