@@ -50,9 +50,10 @@
     <string name="arrow_description">Перейти к треку</string>
 
     <!-- Search placeholders -->
-    <string name="nothing_found">Ничего не нашлось</string>
     <string name="nothing_found_title">Ничего не нашлось</string>
-    <string name="something_went_wrong">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="nothing_found_description">Попробуйте ввести другой запрос</string>
+    <string name="connection_error_title">Проблемы со связью</string>
+    <string name="something_went_wrong">Загрузка не удалась. Проверьте подключение к интернету</string>
     <string name="retry">Обновить</string>
-    <string name="connection_error_text">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+
 </resources>

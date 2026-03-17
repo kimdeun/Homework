@@ -27,6 +27,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var placeholderLayout: LinearLayout
     private lateinit var placeholderImage: ImageView
+    private lateinit var placeholderTitle: TextView
     private lateinit var placeholderText: TextView
     private lateinit var retryButton: Button
     private lateinit var adapter: TrackAdapter
@@ -53,6 +54,7 @@ class SearchActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         placeholderLayout = findViewById(R.id.placeholderLayout)
         placeholderImage = findViewById(R.id.placeholderImage)
+        placeholderTitle = findViewById(R.id.placeholderTitle)
         placeholderText = findViewById(R.id.placeholderText)
         retryButton = findViewById(R.id.retryButton)
     }
@@ -155,15 +157,40 @@ class SearchActivity : AppCompatActivity() {
     private fun showEmptyResult() {
         recyclerView.visibility = View.GONE
         placeholderLayout.visibility = View.VISIBLE
-        placeholderImage.setImageResource(R.drawable.ic_nothing_found_light)
-        placeholderText.setText(R.string.nothing_found)
+
+        // Иконка для пустого результата
+        placeholderImage.setImageResource(R.drawable.ic_nichego_ne_nachlos)
+        placeholderImage.visibility = View.VISIBLE
+
+        // Заголовок
+        placeholderTitle.text = getString(R.string.nothing_found_title)
+        placeholderTitle.visibility = View.VISIBLE
+
+        // Описание
+        placeholderText.text = getString(R.string.nothing_found_description)
+        placeholderText.visibility = View.VISIBLE
+
+        // Кнопка обновить не нужна
         retryButton.visibility = View.GONE
     }
 
     private fun showError() {
         recyclerView.visibility = View.GONE
         placeholderLayout.visibility = View.VISIBLE
-        placeholderText.setText(R.string.something_went_wrong)
+
+        // Иконка для ошибки связи
+        placeholderImage.setImageResource(R.drawable.ic_problemi_so_sviaziu)
+        placeholderImage.visibility = View.VISIBLE
+
+        // Заголовок
+        placeholderTitle.text = getString(R.string.connection_error_title)
+        placeholderTitle.visibility = View.VISIBLE
+
+        // Описание
+        placeholderText.text = getString(R.string.something_went_wrong)
+        placeholderText.visibility = View.VISIBLE
+
+        // Кнопка обновить видна
         retryButton.visibility = View.VISIBLE
     }
 
