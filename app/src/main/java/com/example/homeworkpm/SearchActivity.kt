@@ -166,9 +166,8 @@ class SearchActivity : AppCompatActivity() {
         placeholderTitle.text = getString(R.string.nothing_found_title)
         placeholderTitle.visibility = View.VISIBLE
 
-        // Описание
-        placeholderText.text = getString(R.string.nothing_found_description)
-        placeholderText.visibility = View.VISIBLE
+        // ❌ Описание не нужно - скрываем
+        placeholderText.visibility = View.GONE
 
         // Кнопка обновить не нужна
         retryButton.visibility = View.GONE
@@ -187,7 +186,7 @@ class SearchActivity : AppCompatActivity() {
         placeholderTitle.visibility = View.VISIBLE
 
         // Описание
-        placeholderText.text = getString(R.string.something_went_wrong)
+        placeholderText.text = getString(R.string.connection_error_text)
         placeholderText.visibility = View.VISIBLE
 
         // Кнопка обновить видна

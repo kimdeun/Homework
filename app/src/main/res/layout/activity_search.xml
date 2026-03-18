@@ -145,26 +145,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center"
-                android:text="@string/something_went_wrong"
+                android:text="@string/connection_error_text"
                 android:textColor="@color/artist_name_color"
                 android:textSize="14sp" />
 
-            <Button
+            <!-- Исправленная кнопка -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/retryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:minHeight="36dp"
-                android:minWidth="91dp"
                 android:layout_marginTop="24dp"
-                android:gravity="center"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/retry"
                 android:textAllCaps="false"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"
-                android:textColor="@color/blue"
-                android:background="?selectableItemBackground"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:cornerRadius="18dp"
+                app:backgroundColor="@color/blue" />
 
         </LinearLayout>
 
