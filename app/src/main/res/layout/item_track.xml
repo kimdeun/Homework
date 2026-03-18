@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:src="@tools:sample/avatars" />
 
-    <!-- Контейнер для всего текста (центрирован относительно обложки) -->
+    <!-- Контейнер для всего текста  -->
     <LinearLayout
         android:id="@+id/text_container"
         android:layout_width="0dp"

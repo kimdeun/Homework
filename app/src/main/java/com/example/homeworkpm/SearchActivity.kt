@@ -166,10 +166,8 @@ class SearchActivity : AppCompatActivity() {
         placeholderTitle.text = getString(R.string.nothing_found_title)
         placeholderTitle.visibility = View.VISIBLE
 
-        // ❌ Описание не нужно - скрываем
-        placeholderText.visibility = View.GONE
 
-        // Кнопка обновить не нужна
+        placeholderText.visibility = View.GONE
         retryButton.visibility = View.GONE
     }
 
