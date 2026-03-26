@@ -149,21 +149,28 @@
                 android:textColor="@color/artist_name_color"
                 android:textSize="14sp" />
 
-            <!-- Исправленная кнопка -->
-            <com.google.android.material.button.MaterialButton
+            <!-- Кнопка "Обновить" -->
+            <Button
                 android:id="@+id/retryButton"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
+                android:minHeight="36dp"
+                android:minWidth="91dp"
                 android:layout_marginTop="24dp"
+                android:gravity="center"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:includeFontPadding="false"
                 android:text="@string/retry"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white"
                 android:textSize="14sp"
-                android:visibility="gone"
-                app:cornerRadius="18dp"
-                app:backgroundColor="@color/blue" />
+                android:textColor="@color/retry_button_text"
+                android:background="@drawable/ic_retry_button"
+                android:stateListAnimator="@null"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:elevation="0dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
