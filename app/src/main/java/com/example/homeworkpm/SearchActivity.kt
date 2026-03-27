@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
@@ -32,6 +33,13 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var retryButton: Button
     private lateinit var adapter: TrackAdapter
 
+    // История поиска
+    private lateinit var searchHistory: SearchHistory
+    private lateinit var historyAdapter: TrackAdapter
+    private lateinit var historyLayout: ConstraintLayout  // ← ИЗМЕНЕНО
+    private lateinit var historyTitle: TextView
+    private lateinit var clearHistoryButton: Button
+
     private val api = RetrofitClient.instance
 
     private var searchText: String = ""
@@ -45,6 +53,13 @@ class SearchActivity : AppCompatActivity() {
         initViews()
         setupListeners()
         setupRecyclerView()
+
+        // Инициализация истории поискка
+        val sharedPref = getSharedPreferences("playlist_maker_prefs", MODE_PRIVATE)
+        searchHistory = SearchHistory(sharedPref)
+        setupHistoryRecyclerView()
+        updateHistoryVisibility()
+        setupFocusListener()
     }
 
     private fun initViews() {
@@ -57,6 +72,11 @@ class SearchActivity : AppCompatActivity() {
         placeholderTitle = findViewById(R.id.placeholderTitle)
         placeholderText = findViewById(R.id.placeholderText)
         retryButton = findViewById(R.id.retryButton)
+
+        // История поиска
+        historyLayout = findViewById(R.id.historyLayout)
+        historyTitle = findViewById(R.id.historyTitle)
+        clearHistoryButton = findViewById(R.id.clearHistoryButton)
     }
 
     private fun setupListeners() {
@@ -82,12 +102,19 @@ class SearchActivity : AppCompatActivity() {
             searchText = ""
             hidePlaceholder()
             showEmptyList()
+            updateHistoryVisibility()
         }
 
         retryButton.setOnClickListener {
             if (lastQuery.isNotEmpty()) {
                 performSearch(lastQuery)
             }
+        }
+
+        // Кнопка "Очистить историю"
+        clearHistoryButton.setOnClickListener {
+            searchHistory.clearHistory()
+            updateHistoryVisibility()
         }
 
         setupTextWatcher()
@@ -101,6 +128,7 @@ class SearchActivity : AppCompatActivity() {
                 if (isRestoring) return
                 searchText = s?.toString().orEmpty()
                 updateClearButtonVisibility()
+                updateHistoryVisibility()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -112,6 +140,45 @@ class SearchActivity : AppCompatActivity() {
         adapter = TrackAdapter(emptyList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+    }
+
+    private fun setupHistoryRecyclerView() {
+        val historyRecyclerView = findViewById<RecyclerView>(R.id.historyRecyclerView)
+        historyAdapter = TrackAdapter(emptyList())
+        historyRecyclerView.layoutManager = LinearLayoutManager(this)
+        historyRecyclerView.adapter = historyAdapter
+
+        // Обработка нажатия на трек в истории
+        historyAdapter.setOnItemClickListener { track ->
+            addToHistoryAndShow(track)
+        }
+    }
+
+    private fun updateHistoryVisibility() {
+        val isSearchEmpty = searchEditText.text.isNullOrEmpty()
+        val isHistoryEmpty = searchHistory.isEmpty()
+        val hasFocus = searchEditText.hasFocus()
+
+        val showHistory = isSearchEmpty && hasFocus && !isHistoryEmpty
+
+        historyLayout.visibility = if (showHistory) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (showHistory) View.GONE else View.VISIBLE
+
+        if (showHistory) {
+            historyAdapter.updateTracks(searchHistory.getHistory())
+        }
+    }
+
+    private fun addToHistoryAndShow(track: Track) {
+        searchHistory.addTrack(track)
+        updateHistoryVisibility()
+        // Здесь позже будет переход на экран аудиоплеера
+    }
+
+    private fun setupFocusListener() {
+        searchEditText.setOnFocusChangeListener { _, hasFocus ->
+            updateHistoryVisibility()
+        }
     }
 
     private fun performSearch() {
@@ -152,6 +219,12 @@ class SearchActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.visibility = View.VISIBLE
         placeholderLayout.visibility = View.GONE
+        historyLayout.visibility = View.GONE
+
+        // Обработка нажатия на трек в результатах поиска
+        adapter.setOnItemClickListener { track ->
+            addToHistoryAndShow(track)
+        }
     }
 
     private fun showEmptyResult() {
@@ -165,7 +238,6 @@ class SearchActivity : AppCompatActivity() {
         // Заголовок
         placeholderTitle.text = getString(R.string.nothing_found_title)
         placeholderTitle.visibility = View.VISIBLE
-
 
         placeholderText.visibility = View.GONE
         retryButton.visibility = View.GONE
@@ -196,6 +268,7 @@ class SearchActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.visibility = View.VISIBLE
         placeholderLayout.visibility = View.GONE
+        historyLayout.visibility = View.GONE
     }
 
     private fun hidePlaceholder() {
