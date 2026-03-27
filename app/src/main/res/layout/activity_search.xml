@@ -94,7 +94,7 @@
         </FrameLayout>
     </FrameLayout>
 
-    <!-- Content Container (RecyclerView + Placeholder) -->
+    <!-- Content Container -->
     <FrameLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
@@ -102,7 +102,70 @@
         android:layout_weight="1"
         android:layout_marginTop="8dp">
 
-        <!-- RecyclerView -->
+        <!-- History Container -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/historyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="42dp">
+
+            <!-- Заголовок "Вы искали" -->
+            <TextView
+                android:id="@+id/historyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вы искали"
+                android:textSize="18sp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="@color/text_dark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="14dp" />
+
+            <!-- RecyclerView для истории -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/historyRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:overScrollMode="never"
+                android:clipToPadding="false"
+                android:paddingBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@id/historyTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Кнопка "Очистить историю" с drawable ic_otchist -->
+            <Button
+                android:id="@+id/clearHistoryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:minHeight="36dp"
+                android:minWidth="91dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="Очистить историю"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:fontFamily="@font/ys_display_regular"
+                android:textColor="@color/retry_button_text"
+                android:background="@drawable/ic_otchist"
+                android:stateListAnimator="@null"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
+                android:elevation="0dp"
+                app:layout_constraintTop_toBottomOf="@id/historyRecyclerView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- RecyclerView для результатов поиска -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -149,7 +212,6 @@
                 android:textColor="@color/artist_name_color"
                 android:textSize="14sp" />
 
-            <!-- Кнопка "Обновить" -->
             <Button
                 android:id="@+id/retryButton"
                 android:layout_width="wrap_content"
