@@ -27,14 +27,13 @@
     <color name="track_time_color">#9B9B9B</color>
     <color name="track_dot_color">#9B9B9B</color>
 
-    <!-- Search field  -->
+    <!-- Search field -  -->
     <color name="search_field_bg">#2A2B32</color>
-    <color name="search_text">#FFFFFF</color>
-    <color name="search_hint_color">#9B9B9B</color>
+    <color name="search_text">#2A2B32</color>
+    <color name="search_hint_color">#2A2B32</color>
     <color name="search_icon_tint">#9B9B9B</color>
-    <color name="search_hint_and_icons">#9B9B9B</color>
-    <color name="search_input_text">#FFFFFF</color>
-
-
+    <color name="search_hint_and_icons">#2A2B32</color>
+    <color name="search_input_text">#2A2B32</color>
+    <color name="retry_button_text">#1A1B22</color>
 
 </resources>

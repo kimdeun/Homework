@@ -1,20 +1,23 @@
 package com.example.homeworkpm
 
 import android.content.Context
-import com.example.homeworkpm.TrackAdapter
-import com.example.homeworkpm.Track
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
 
@@ -22,49 +25,48 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var clearButton: ImageView
     private lateinit var backButton: ImageView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var placeholderLayout: LinearLayout
+    private lateinit var placeholderImage: ImageView
+    private lateinit var placeholderTitle: TextView
+    private lateinit var placeholderText: TextView
+    private lateinit var retryButton: Button
     private lateinit var adapter: TrackAdapter
+
+    private val api = RetrofitClient.instance
 
     private var searchText: String = ""
     private var isRestoring = false
+    private var lastQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        // Инициализируем все View
+        initViews()
+        setupListeners()
+        setupRecyclerView()
+    }
+
+    private fun initViews() {
         searchEditText = findViewById(R.id.etSearch)
         clearButton = findViewById(R.id.ivClear)
         backButton = findViewById(R.id.btnBack)
         recyclerView = findViewById(R.id.recycler_view)
+        placeholderLayout = findViewById(R.id.placeholderLayout)
+        placeholderImage = findViewById(R.id.placeholderImage)
+        placeholderTitle = findViewById(R.id.placeholderTitle)
+        placeholderText = findViewById(R.id.placeholderText)
+        retryButton = findViewById(R.id.retryButton)
+    }
 
-        setupRecyclerView()
-
-        // Настройка кнопки назад
+    private fun setupListeners() {
         backButton.setOnClickListener {
             hideKeyboard(searchEditText)
             finish()
         }
 
-        searchEditText.hint = getString(R.string.search_hint)
-
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (isRestoring) return
-
-                searchText = s?.toString().orEmpty()
-                updateClearButtonVisibility()
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        }
-
-        searchEditText.addTextChangedListener(textWatcher)
-
-        // Обработка нажатия кнопки "Поиск"
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 performSearch()
                 true
             } else {
@@ -72,97 +74,136 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        // Обработка кнопки очистки
         clearButton.setOnClickListener {
             searchEditText.text.clear()
             searchEditText.requestFocus()
             showKeyboard(searchEditText)
             updateClearButtonVisibility()
             searchText = ""
+            hidePlaceholder()
+            showEmptyList()
         }
+
+        retryButton.setOnClickListener {
+            if (lastQuery.isNotEmpty()) {
+                performSearch(lastQuery)
+            }
+        }
+
+        setupTextWatcher()
     }
 
+    private fun setupTextWatcher() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (isRestoring) return
+                searchText = s?.toString().orEmpty()
+                updateClearButtonVisibility()
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        }
+        searchEditText.addTextChangedListener(textWatcher)
+    }
 
     private fun setupRecyclerView() {
-        val mockTracks = getMockTracks()
-
-
-        adapter = TrackAdapter(mockTracks)
-
-
+        adapter = TrackAdapter(emptyList())
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-    }
-
-    private fun getMockTracks(): List<Track> {
-        return listOf(
-            Track(
-                "Smells Like Teen Spirit",
-                "Nirvana",
-                "5:01",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music115/v4/7b/58/c2/7b58c21a-2b51-2bb2-e59a-9bb9b96ad8c3/00602567924166.rgb.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Billie Jean",
-                "Michael Jackson",
-                "4:35",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/3d/9d/38/3d9d3811-71f0-3a0e-1ada-3004e56ff852/827969428726.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Stayin' Alive",
-                "Bee Gees",
-                "4:10",
-                "https://is4-ssl.mzstatic.com/image/thumb/Music115/v4/1f/80/1f/1f801fc1-8c0f-ea3e-d3e5-387c6619619e/16UMGIM86640.rgb.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Whole Lotta Love",
-                "Led Zeppelin",
-                "5:33",
-                "https://is2-ssl.mzstatic.com/image/thumb/Music62/v4/7e/17/e3/7e17e33f-2efa-2a36-e916-7f808576cf6b/mzm.fyigqcbs.jpg/100x100bb.jpg"
-            ),
-            Track(
-                "Sweet Child O'Mine",
-                "Guns N' Roses",
-                "5:03",
-                "https://is5-ssl.mzstatic.com/image/thumb/Music125/v4/a0/4d/c4/a04dc484-03cc-02aa-fa82-5334fcb4bc16/18UMGIM24878.rgb.jpg/100x100bb.jpg"
-            )
-        )
-    }
-
-    private fun updateClearButtonVisibility() {
-        clearButton.visibility = if (searchEditText.text.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
     }
 
     private fun performSearch() {
         val query = searchEditText.text.toString()
         if (query.isNotEmpty()) {
-            Toast.makeText(this, "Поиск: $query", Toast.LENGTH_SHORT).show()
-            hideKeyboard(searchEditText)
-
+            lastQuery = query
+            performSearch(query)
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(KEY_SEARCH_TEXT, searchText)
+    private fun performSearch(query: String) {
+        hideKeyboard(searchEditText)
+        hidePlaceholder()
+
+        api.search(query).enqueue(object : Callback<ITunesResponse> {
+            override fun onResponse(call: Call<ITunesResponse>, response: Response<ITunesResponse>) {
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    if (body != null && body.results.isNotEmpty()) {
+                        val tracks = body.results.map { Track.fromDto(it) }
+                        showTracks(tracks)
+                    } else {
+                        showEmptyResult()
+                    }
+                } else {
+                    showError()
+                }
+            }
+
+            override fun onFailure(call: Call<ITunesResponse>, t: Throwable) {
+                showError()
+            }
+        })
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
+    private fun showTracks(tracks: List<Track>) {
+        adapter = TrackAdapter(tracks)
+        recyclerView.adapter = adapter
+        recyclerView.visibility = View.VISIBLE
+        placeholderLayout.visibility = View.GONE
+    }
 
-        isRestoring = true
-        val value = savedInstanceState.getString(KEY_SEARCH_TEXT, "")
-        searchEditText.setText(value)
-        if (value.isNotEmpty()) {
-            searchEditText.setSelection(value.length)
-        }
-        updateClearButtonVisibility()
-        searchText = value
-        isRestoring = false
+    private fun showEmptyResult() {
+        recyclerView.visibility = View.GONE
+        placeholderLayout.visibility = View.VISIBLE
+
+        // Иконка для пустого результата
+        placeholderImage.setImageResource(R.drawable.ic_nichego_ne_nachlos)
+        placeholderImage.visibility = View.VISIBLE
+
+        // Заголовок
+        placeholderTitle.text = getString(R.string.nothing_found_title)
+        placeholderTitle.visibility = View.VISIBLE
+
+
+        placeholderText.visibility = View.GONE
+        retryButton.visibility = View.GONE
+    }
+
+    private fun showError() {
+        recyclerView.visibility = View.GONE
+        placeholderLayout.visibility = View.VISIBLE
+
+        // Иконка для ошибки связи
+        placeholderImage.setImageResource(R.drawable.ic_problemi_so_sviaziu)
+        placeholderImage.visibility = View.VISIBLE
+
+        // Заголовок
+        placeholderTitle.text = getString(R.string.connection_error_title)
+        placeholderTitle.visibility = View.VISIBLE
+
+        // Описание
+        placeholderText.text = getString(R.string.connection_error_text)
+        placeholderText.visibility = View.VISIBLE
+
+        // Кнопка обновить видна
+        retryButton.visibility = View.VISIBLE
+    }
+
+    private fun showEmptyList() {
+        adapter = TrackAdapter(emptyList())
+        recyclerView.adapter = adapter
+        recyclerView.visibility = View.VISIBLE
+        placeholderLayout.visibility = View.GONE
+    }
+
+    private fun hidePlaceholder() {
+        placeholderLayout.visibility = View.GONE
+    }
+
+    private fun updateClearButtonVisibility() {
+        clearButton.visibility = if (searchEditText.text.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
     private fun hideKeyboard(view: View) {
@@ -173,6 +214,24 @@ class SearchActivity : AppCompatActivity() {
     private fun showKeyboard(view: View) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_SEARCH_TEXT, searchText)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isRestoring = true
+        val value = savedInstanceState.getString(KEY_SEARCH_TEXT, "")
+        searchEditText.setText(value)
+        if (value.isNotEmpty()) {
+            searchEditText.setSelection(value.length)
+        }
+        updateClearButtonVisibility()
+        searchText = value
+        isRestoring = false
     }
 
     override fun onBackPressed() {
